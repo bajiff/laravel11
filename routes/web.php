@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Support\Arr;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+
+
 
 Route::get('/', function () {
     return view('home', ['title' => 'Home Page']);
@@ -13,66 +15,24 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', function () {
-    return view('posts', ['title' => 'Blog', 'posts' => [
+    return view(
+        'posts',
         [
-            'id' => 1,
-            'slug' => 'baji-diary-1',
-            'title' => 'Baji Diary 1',
-            'author' => 'Baji',
-            'date' => '1 January',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum consequuntur officiis quasi laudantium, minus magni sint, voluptatibus nobis perspiciatis adipisci illum voluptate optio perferendis quisquam repellendus quis nesciunt voluptatum distinctio.'
-        ],
-        [
-            'id' => 2,
-            'slug' => 'baji-diary-2',
-            'title' => 'Baji Diary 2',
-            'author' => 'Meki',
-            'date' => '1 February',
-            'body' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur cum laboriosam aliquam doloribus tempore repellendus suscipit ratione animi! Debitis porro dolore fuga itaque est commodi repudiandae illum corporis quisquam omnis!'
-        ],
-        [
-            'id' => 3,
-            'slug' => 'baji-diary-3',
-            'title' => 'Baji Diary 3',
-            'author' => 'Penny',
-            'date' => '1 March',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus expedita iusto voluptates soluta maxime dolores minima cumque explicabo ipsum, adipisci dolore consequuntur laudantium animi autem itaque ad corrupti? Quas, vero?'
-        ],
-
-    ]]);
+            'title' => 'Blog',
+            'posts' => Post::all()
+        ]
+    );
 });
 
 Route::get('/posts/{slug}', function ($slug) {
-    $posts = [
+    $post = Post::find($slug);
+    return view(
+        'post',
         [
-            'id' => 1,
-            'slug' => 'baji-diary-1',
-            'title' => 'Baji Diary 1',
-            'author' => 'Baji',
-            'date' => '1 January',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum consequuntur officiis quasi laudantium, minus magni sint, voluptatibus nobis perspiciatis adipisci illum voluptate optio perferendis quisquam repellendus quis nesciunt voluptatum distinctio.'
-        ],
-        [
-            'id' => 2,
-            'slug' => 'baji-diary-2',
-            'title' => 'Baji Diary 2',
-            'author' => 'Meki',
-            'date' => '1 February',
-            'body' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur cum laboriosam aliquam doloribus tempore repellendus suscipit ratione animi! Debitis porro dolore fuga itaque est commodi repudiandae illum corporis quisquam omnis!'
-        ],
-        [
-            'id' => 3,
-            'slug' => 'baji-diary-3',
-            'title' => 'Baji Diary 3',
-            'author' => 'Meki',
-            'date' => '1 March',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus expedita iusto voluptates soluta maxime dolores minima cumque explicabo ipsum, adipisci dolore consequuntur laudantium animi autem itaque ad corrupti? Quas, vero?'
-        ],
-    ];
-    $post = Arr::first($posts, function ($post) use ($slug) {
-        return $post['slug'] == $slug;
-    });
-    return view('post', ['title' => 'Single Post', 'post' => $post]);
+            'title' => 'Single Post',
+            'post' => $post
+        ]
+    );
 });
 
 Route::get('/contact', function () {
