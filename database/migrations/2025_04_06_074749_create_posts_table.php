@@ -16,7 +16,12 @@ return new class extends Migration
             $table->timestamps();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('author');
+            $table->foreignId('author_id')->constrained(
+                table: 'users', indexName: 'author_id'
+            );
+            $table->foreignId('category_id')->constrained(
+                table: 'categories', indexName: 'category_id'
+            );
             $table->text('body');
         });
     }

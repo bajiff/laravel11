@@ -7,7 +7,13 @@
       <h1 class="mb-1 tracking-tight text-3xl font-semibold ">{{ $post->title }}</h1>
     </a>
     <div class="my-3">
-      <a href="#" class="text-base text-gray-400 ">Author: {{ $post->author}} | {{ $post->created_at->diffForHumans() }}</a>
+      By
+      <a href="/authors/{{ $post->author->id }}" class="text-base hover:underline ">
+        <span class="font-bold text-blue-800">{{ $post->author->name}}</span>
+      </a>
+      In
+      <a href="/categories/{{ $post->category->id}}" class="hover:underline font-semibold ">{{ $post->category->name}}</a>
+      <span class="font-bold text-blue-500">{{ $post->created_at->diffForHumans() }}</span>
     </div>
     <p class="my-4 font-light">{{ Str::limit($post['body'], 100, '...') }}</p>
     <a href="/posts/{{ $post['slug'] }}" class="text-blue-500 font-medium hover:underline">Read More &raquo;</a>
