@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -44,21 +45,21 @@ Route::get('/posts/{post:slug}', function (Post $post) {
         ]
     );
 });
-Route::get('/authors/{user}', function (User $user) {
+Route::get('/authors/{user:username}', function (User $user) {
     return view(
         'posts',
         [
-            'title' => 'Article by ' . $user->name,
+            'title' => count($user->posts) .' Article by ' . $user->name,
             'posts' => $user->posts
         ]
     );
 });
-Route::get('/categories/{user}', function (User $user) {
+Route::get('/categories/{category:slug}', function (Category $category) {
     return view(
         'posts',
         [
-            'title' => 'Category by ' . $user->name,
-            'posts' => $user->posts
+            'title' => 'Category by ' . $category->name,
+            'posts' => $category->posts
         ]
     );
 });

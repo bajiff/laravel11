@@ -8,15 +8,15 @@
     </a>
     <div class="my-3">
       By
-      <a href="/authors/{{ $post->author->id }}" class="text-base hover:underline ">
+      <a href="/authors/{{ $post->author->username }}" class="text-base hover:underline ">
         <span class="font-bold text-blue-800">{{ $post->author->name}}</span>
       </a>
       In
-      <a href="/categories/{{ $post->category->id}}" class="hover:underline font-semibold ">{{ $post->category->name}}</a>
+      <a href="/categories/{{ $post->category->slug }}" class="hover:underline font-semibold ">{{ $post->category->name}}</a>
       <span class="font-bold text-blue-500">{{ $post->created_at->diffForHumans() }}</span>
     </div>
-    <p class="my-4 font-light">{{ Str::limit($post['body'], 100, '...') }}</p>
-    <a href="/posts/{{ $post['slug'] }}" class="text-blue-500 font-medium hover:underline">Read More &raquo;</a>
+    <p class="my-4 font-light">{{ Str::limit($post->body, 100, '...') }}</p>
+    <a href="/posts/{{ $post->slug }}" class="text-blue-500 font-medium hover:underline">Read More &raquo;</a>
   </article>
   @endforeach
 
