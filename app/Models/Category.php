@@ -12,7 +12,8 @@ class Category extends Model
     use HasFactory, Notifiable;
     protected $fillable = [
         'name',
-        'slug' 
+        'slug',
+        'color',
     ];
     public function posts(): HasMany
     {
