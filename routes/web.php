@@ -33,7 +33,7 @@ Route::get('/posts', function () {
         'posts',
         [
             'title' => 'Blog',
-            'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->get(),
+            'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(9)->withQueryString(),
         ]
     );
 });
